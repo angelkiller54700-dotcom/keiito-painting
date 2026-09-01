@@ -1,0 +1,41 @@
+{
+  "name": "keiito-painting",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "cross-env NODE_OPTIONS=--use-system-ca next dev",
+    "build": "cross-env NODE_OPTIONS=--use-system-ca next build",
+    "start": "cross-env NODE_OPTIONS=--use-system-ca next start",
+    "lint": "next lint",
+    "create-admin": "cross-env NODE_OPTIONS=--use-system-ca node scripts/create-admin.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.5.2",
+    "@supabase/supabase-js": "^2.45.4",
+    "browser-image-compression": "^2.0.2",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.441.0",
+    "next": "14.2.35",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwind-merge": "^2.5.2",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.16.5",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.20",
+    "cross-env": "^10.1.0",
+    "dotenv": "^16.4.5",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.2.35",
+    "postcss": "^8.4.45",
+    "sharp": "^0.33.5",
+    "tailwindcss": "^3.4.10",
+    "typescript": "^5.5.4"
+  }
+}
