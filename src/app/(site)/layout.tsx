@@ -1,6 +1,7 @@
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { AmbientBackground } from "@/components/site/AmbientBackground";
+import { Analytics } from "@/components/site/Analytics";
 import { getSiteSettings } from "@/lib/settings";
 
 export default async function SiteLayout({
@@ -16,6 +17,7 @@ export default async function SiteLayout({
       <SiteHeader contact={contact} />
       <main className="flex-1 pt-16 sm:pt-20">{children}</main>
       <SiteFooter contact={contact} />
+      <Analytics />
     </div>
   );
 }

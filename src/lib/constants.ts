@@ -12,6 +12,7 @@ export const NAV_LINKS = [
 
 export const ADMIN_NAV = [
   { href: "/admin", label: "Dashboard", icon: "LayoutDashboard" },
+  { href: "/admin/statistiques", label: "Statistiques", icon: "BarChart3" },
   { href: "/admin/creations", label: "Créations", icon: "Images" },
   { href: "/admin/creations/new", label: "Ajouter une création", icon: "Plus" },
   { href: "/admin/categories", label: "Catégories", icon: "Tags" },

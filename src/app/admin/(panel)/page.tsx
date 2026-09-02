@@ -1,14 +1,20 @@
 import Link from "next/link";
 import { requireAdmin } from "@/lib/auth";
 import { adminGetStats, adminListQuotes } from "@/lib/admin-queries";
+import { adminGetTrafficAnalytics } from "@/lib/admin-analytics";
 import { StatCard } from "@/components/admin/StatCard";
+import { BarColumns, TrendPill } from "@/components/admin/charts";
 import { Icon } from "@/components/ui/Icon";
 import { QUOTE_STATUS_LABELS } from "@/lib/types";
 import { formatDate } from "@/lib/utils";
 
 export default async function AdminDashboard() {
   const admin = await requireAdmin();
-  const [stats, quotes] = await Promise.all([adminGetStats(), adminListQuotes()]);
+  const [stats, quotes, traffic] = await Promise.all([
+    adminGetStats(),
+    adminListQuotes(),
+    adminGetTrafficAnalytics(14),
+  ]);
   const recent = quotes.slice(0, 5);
 
   return (
@@ -46,6 +52,36 @@ export default async function AdminDashboard() {
           </Link>
         </div>
       )}
+
+      <div className="card-surface p-5">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+          <h2 className="font-display text-lg uppercase text-fog">Trafic — 14 derniers jours</h2>
+          <Link href="/admin/statistiques" className="text-xs text-violet-bright hover:underline">
+            Statistiques détaillées
+          </Link>
+        </div>
+        <div className="mb-4 flex flex-wrap gap-x-8 gap-y-2 text-sm">
+          <span className="text-fog-muted">
+            <span className="font-display text-xl text-fog">
+              {traffic.totalViews.toLocaleString("fr-FR")}
+            </span>{" "}
+            pages vues <TrendPill value={traffic.trend.views} />
+          </span>
+          <span className="text-fog-muted">
+            <span className="font-display text-xl text-fog">
+              {traffic.uniqueVisitors.toLocaleString("fr-FR")}
+            </span>{" "}
+            visiteurs <TrendPill value={traffic.trend.visitors} />
+          </span>
+        </div>
+        {traffic.hasData ? (
+          <BarColumns data={traffic.byDay} labelEvery={2} className="max-w-2xl" />
+        ) : (
+          <p className="text-sm text-fog-muted">
+            La mesure d&apos;audience est active — les données s&apos;afficheront au fil des visites.
+          </p>
+        )}
+      </div>
 
       <div className="card-surface p-5">
         <div className="mb-4 flex items-center justify-between">

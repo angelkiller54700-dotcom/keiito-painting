@@ -34,6 +34,12 @@ export default async function ConfidentialitePage() {
           Les photos jointes à une demande sont stockées de façon privée et ne sont consultables que
           par l&apos;administrateur du site.
         </p>
+        <p>
+          Ce site utilise une <strong>mesure d&apos;audience anonyme et sans cookie</strong> : seuls
+          la page consultée, la source de la visite et un identifiant temporaire (effacé à la
+          fermeture de l&apos;onglet) sont enregistrés, pour connaître la fréquentation générale.
+          Aucune adresse IP ni donnée permettant de vous identifier n&apos;est conservée.
+        </p>
         <p className="text-xs text-fog-muted/70">
           Ce texte est un modèle générique à adapter à votre situation réelle.
         </p>

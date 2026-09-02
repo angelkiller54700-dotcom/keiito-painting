@@ -1,6 +1,7 @@
 import {
   ArrowLeft,
   ArrowRight,
+  BarChart3,
   Brush,
   Castle,
   Check,
@@ -35,6 +36,7 @@ import {
 const MAP: Record<string, LucideIcon> = {
   ArrowLeft,
   ArrowRight,
+  BarChart3,
   Brush,
   Castle,
   Check,
