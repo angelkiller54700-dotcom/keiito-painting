@@ -38,7 +38,7 @@ export const DEFAULT_SETTINGS: SiteSettings = {
     email: "",
     instagram: "https://instagram.com/keiit0_painting",
     facebook: "",
-    tiktok: "",
+    tiktok: "https://www.tiktok.com/@keiit0_painting",
     intro:
       "Décrivez votre projet le plus précisément possible : je reviens vers vous avec un devis personnalisé.",
   },

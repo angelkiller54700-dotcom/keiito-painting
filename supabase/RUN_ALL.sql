@@ -169,7 +169,9 @@ create table if not exists public.site_settings (
 -- ---------------------------------------------------------------------------
 -- updated_at automatique
 -- ---------------------------------------------------------------------------
-create or replace function public.touch_updated_at()
+
+-- Pour `creations` : met à jour updated_at + published_at à la 1re publication.
+create or replace function public.touch_creation()
 returns trigger
 language plpgsql
 as $$
@@ -182,15 +184,26 @@ begin
 end;
 $$;
 
+-- Générique : met uniquement updated_at à jour.
+create or replace function public.touch_updated_at_only()
+returns trigger
+language plpgsql
+as $$
+begin
+  new.updated_at = now();
+  return new;
+end;
+$$;
+
 drop trigger if exists creations_touch on public.creations;
 create trigger creations_touch
   before update on public.creations
-  for each row execute function public.touch_updated_at();
+  for each row execute function public.touch_creation();
 
 drop trigger if exists site_settings_touch on public.site_settings;
 create trigger site_settings_touch
   before update on public.site_settings
-  for each row execute function public.touch_updated_at();
+  for each row execute function public.touch_updated_at_only();
 
 -- ---------------------------------------------------------------------------
 -- Storage : bucket public "creations"
@@ -469,7 +482,7 @@ insert into public.site_settings (key, value) values
       'email', '',
       'instagram', 'https://instagram.com/keiit0_painting',
       'facebook', '',
-      'tiktok', '',
+      'tiktok', 'https://www.tiktok.com/@keiit0_painting',
       'intro', 'Décrivez votre projet le plus précisément possible : je reviens vers vous avec un devis personnalisé.'
   )),
   ('seo', jsonb_build_object(
@@ -529,3 +542,31 @@ create policy "page_views: admin read"
 create policy "page_views: admin delete"
   on public.page_views for delete
   using (public.is_admin());
+
+
+-- ===========================================================================
+-- Keiito Painting - Correctif : trigger updated_at de site_settings
+-- ---------------------------------------------------------------------------
+-- Bug : le trigger de site_settings utilisait la même fonction que celui de
+-- `creations`, qui référence `new.status` / `new.published_at`. Or ces colonnes
+-- n'existent pas sur `site_settings` -> toute MISE À JOUR d'un réglage échouait
+-- avec « record "new" has no field "status" ».
+-- Correctif : une fonction dédiée qui ne touche qu'à `updated_at`.
+-- ===========================================================================
+
+create or replace function public.touch_updated_at_only()
+returns trigger
+language plpgsql
+as $$
+begin
+  new.updated_at = now();
+  return new;
+end;
+$$;
+
+drop trigger if exists site_settings_touch on public.site_settings;
+create trigger site_settings_touch
+  before update on public.site_settings
+  for each row execute function public.touch_updated_at_only();
+
+

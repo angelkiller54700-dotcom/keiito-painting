@@ -163,7 +163,9 @@ create table if not exists public.site_settings (
 -- ---------------------------------------------------------------------------
 -- updated_at automatique
 -- ---------------------------------------------------------------------------
-create or replace function public.touch_updated_at()
+
+-- Pour `creations` : met à jour updated_at + published_at à la 1re publication.
+create or replace function public.touch_creation()
 returns trigger
 language plpgsql
 as $$
@@ -176,15 +178,26 @@ begin
 end;
 $$;
 
+-- Générique : met uniquement updated_at à jour.
+create or replace function public.touch_updated_at_only()
+returns trigger
+language plpgsql
+as $$
+begin
+  new.updated_at = now();
+  return new;
+end;
+$$;
+
 drop trigger if exists creations_touch on public.creations;
 create trigger creations_touch
   before update on public.creations
-  for each row execute function public.touch_updated_at();
+  for each row execute function public.touch_creation();
 
 drop trigger if exists site_settings_touch on public.site_settings;
 create trigger site_settings_touch
   before update on public.site_settings
-  for each row execute function public.touch_updated_at();
+  for each row execute function public.touch_updated_at_only();
 
 -- ---------------------------------------------------------------------------
 -- Storage : bucket public "creations"

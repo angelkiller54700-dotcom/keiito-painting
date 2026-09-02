@@ -78,7 +78,7 @@ insert into public.site_settings (key, value) values
       'email', '',
       'instagram', 'https://instagram.com/keiit0_painting',
       'facebook', '',
-      'tiktok', '',
+      'tiktok', 'https://www.tiktok.com/@keiit0_painting',
       'intro', 'Décrivez votre projet le plus précisément possible : je reviens vers vous avec un devis personnalisé.'
   )),
   ('seo', jsonb_build_object(

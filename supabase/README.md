@@ -8,6 +8,7 @@ Exécuter dans le **SQL Editor** du dashboard Supabase, dans cet ordre :
 | 2 | `migrations/0002_rls.sql` | Row Level Security + policies (tables & Storage) |
 | 3 | `migrations/0003_seed.sql` | Catégories, niveaux de tarifs (sans prix définitifs), textes par défaut |
 | 4 | `migrations/0004_analytics.sql` | Table `page_views` (mesure d'audience sans cookie) + RLS |
+| 5 | `migrations/0005_fix_settings_trigger.sql` | Correctif du trigger `updated_at` de `site_settings` |
 
 Les fichiers sont **idempotents** (`if not exists`, `on conflict do nothing`,
 `drop policy if exists`) : on peut les rejouer sans casser les données.
