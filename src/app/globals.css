@@ -110,3 +110,9 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Curseur natif masqué pendant que le feu follet (CursorWisp) est actif. */
+html.kp-cursor-hidden,
+html.kp-cursor-hidden * {
+  cursor: none !important;
+}
