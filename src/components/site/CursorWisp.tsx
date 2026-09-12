@@ -64,18 +64,18 @@ export function CursorWisp() {
     document.addEventListener("mouseout", onOut);
 
     function spawn(t: number) {
-      if (!mouse.active || t - lastSpawn < 20) return;
+      if (!mouse.active || t - lastSpawn < 24) return;
       lastSpawn = t;
       particles.push({
         x: mouse.x + (Math.random() - 0.5) * 4,
         y: mouse.y + (Math.random() - 0.5) * 4,
-        vx: (Math.random() - 0.5) * 0.22,
-        vy: -0.12 - Math.random() * 0.22,
+        vx: (Math.random() - 0.5) * 0.08,
+        vy: -0.04 - Math.random() * 0.09,
         r: 5 + Math.random() * 5,
         life: 0,
-        maxLife: 600 + Math.random() * 350,
+        maxLife: 1300 + Math.random() * 700,
       });
-      if (particles.length > 80) particles.splice(0, particles.length - 80);
+      if (particles.length > 90) particles.splice(0, particles.length - 90);
     }
 
     function loop(t: number) {
@@ -91,7 +91,7 @@ export function CursorWisp() {
         p.life += dt;
         p.x += p.vx * dt;
         p.y += p.vy * dt;
-        p.r += dt * 0.01;
+        p.r += dt * 0.006;
         const k = Math.max(0, 1 - p.life / p.maxLife);
         const alpha = k * 0.45;
         const rad = p.r * 2.3;
