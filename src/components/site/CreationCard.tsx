@@ -23,7 +23,7 @@ export function CreationCard({
     <Link
       href={`/galerie/${creation.slug}`}
       className={cn(
-        "group relative flex flex-col overflow-hidden rounded-xl border border-ink-border bg-ink-soft/80 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-violet-bright/50 hover:shadow-glow",
+        "group relative flex h-full flex-col overflow-hidden rounded-xl border border-ink-border bg-ink-soft/80 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-violet-bright/50 hover:shadow-glow",
         className,
       )}
     >
