@@ -2,6 +2,7 @@ import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { AmbientBackground } from "@/components/site/AmbientBackground";
 import { Analytics } from "@/components/site/Analytics";
+import { CursorWisp } from "@/components/site/CursorWisp";
 import { getSiteSettings } from "@/lib/settings";
 
 export default async function SiteLayout({
@@ -18,6 +19,7 @@ export default async function SiteLayout({
       <main className="flex-1 pt-16 sm:pt-20">{children}</main>
       <SiteFooter contact={contact} />
       <Analytics />
+      <CursorWisp />
     </div>
   );
 }
