@@ -11,6 +11,11 @@ try {
 const nextConfig = {
   reactStrictMode: true,
   images: {
+    // Les photos sont déjà compressées en WebP à l'upload (voir src/lib/image.ts),
+    // donc on sert les fichiers tels quels au lieu de passer par le pipeline
+    // d'optimisation d'images de Vercel (payant au-delà d'un quota mensuel
+    // sur le plan gratuit -> erreur 402 sur certaines tailles une fois dépassé).
+    unoptimized: true,
     formats: ["image/avif", "image/webp"],
     remotePatterns: [
       // Supabase Storage public objects
